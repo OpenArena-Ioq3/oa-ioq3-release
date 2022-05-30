@@ -1,0 +1,3 @@
+[submodule "openarena-ioq3"]
+	path = openarena-ioq3
+	url = https://github.com/OpenArena-Ioq3/openarena-ioq3
