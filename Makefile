@@ -21,6 +21,7 @@ release: engine_linux engine_windows $(LINUX_OUTPUT_DIR) $(WINDOWS_OUTPUT_DIR)
 		$(LINUX_OUTPUT_DIR)
 	cp $(WINDOWS_ENGINE_BINARY_DIR)/{oa-ioq3ded.x86_64.exe,oa-ioquake3.x86_64.exe,renderer_opengl1_x86_64.dll,renderer_opengl2_x86_64.dll,SDL264.dll} \
 		$(WINDOWS_OUTPUT_DIR)
+	mv $(WINDOWS_OUTPUT_DIR)/SDL264.dll $(WINDOWS_OUTPUT_DIR)/SDL2.dll
 	cd $(LINUX_OUTPUT_DIR) && zip -r ../$(LINUX_ENGINE_ZIP) .
 	cd $(WINDOWS_OUTPUT_DIR) && zip -r ../$(WINDOWS_ENGINE_ZIP) .
 
