@@ -3,7 +3,9 @@
 ENGINE_DIR := openarena-ioq3
 LINUX_ENGINE_BINARY_DIR := $(ENGINE_DIR)/build/release-linux-x86_64/
 WINDOWS_ENGINE_BINARY_DIR := $(ENGINE_DIR)/build/release-mingw32-x86_64/
-ENGINE_OPTS := 
+ENGINE_OPTS :=
+
+ASSETS_DIR := oa-assets
 
 OUTPUT_DIR := build
 
@@ -22,8 +24,10 @@ release: engine_linux engine_windows $(LINUX_OUTPUT_DIR) $(WINDOWS_OUTPUT_DIR)
 	cp $(WINDOWS_ENGINE_BINARY_DIR)/{oa-ioq3ded.x86_64.exe,oa-ioquake3.x86_64.exe,renderer_opengl1_x86_64.dll,renderer_opengl2_x86_64.dll,SDL264.dll} \
 		$(WINDOWS_OUTPUT_DIR)
 	mv $(WINDOWS_OUTPUT_DIR)/SDL264.dll $(WINDOWS_OUTPUT_DIR)/SDL2.dll
-	cd $(LINUX_OUTPUT_DIR) && zip -r ../$(LINUX_ENGINE_ZIP) .
-	cd $(WINDOWS_OUTPUT_DIR) && zip -r ../$(WINDOWS_ENGINE_ZIP) .
+	(GLOBIGNORE="*.git" cp -r $(ASSETS_DIR)/* $(LINUX_OUTPUT_DIR))
+	(GLOBIGNORE="*.git" cp -r $(ASSETS_DIR)/* $(WINDOWS_OUTPUT_DIR))
+	cd $(OUTPUT_DIR) && zip -r $(LINUX_ENGINE_ZIP) linux
+	cd $(OUTPUT_DIR) && zip -r $(WINDOWS_ENGINE_ZIP) windows
 
 engine_windows:
 	$(MAKE) -C $(ENGINE_DIR) $(ENGINE_OPTS) PLATFORM=mingw32 ARCH=x86_64
